@@ -42,18 +42,35 @@ POST /api/orders
   "createdAt": "2026-05-01T10:00:00Z"
 }
 
-## 🏗️ Architecture
-
-Angular (Frontend)
-    ↓
-.NET API
-    ↓
-Service Layer
-    ↓
-Repository Layer
-    ↓
-Database
-
 ## 🏢 Business Use Case
 
 This project simulates an internal system used by companies to manage customer orders, track order status, and enforce role-based access for operations teams.
+
+## 🏗 Architecture
+
+This system follows a simple 3-layer architecture:
+
+Frontend (Angular)
+→ Handles UI and user interactions
+
+Backend (ASP.NET Core REST API)
+→ Handles business logic and API processing
+
+Database (MySQL)
+→ Stores orders, customers, products, and transactions
+
+## 🔄 System Flow
+
+1. User interacts with Angular frontend  
+2. Frontend sends HTTP requests to .NET REST API  
+3. Backend processes business logic  
+4. Data is stored/retrieved from MySQL database  
+5. Response is returned to frontend
+
+## 💼 What This Project Demonstrates
+
+- Full-stack application design
+- REST API development using .NET
+- Angular frontend integration
+- Database design using MySQL
+- Separation of concerns (frontend / backend / data layer)
