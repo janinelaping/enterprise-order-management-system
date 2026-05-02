@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OrderManagement.API.Models;
+using AppDbContext = OrderManagement.API.Data.AppDbContext;
 
 namespace OrderManagement.API.Data
 {

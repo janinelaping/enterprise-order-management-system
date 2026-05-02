@@ -31,3 +31,13 @@
 /Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/obj/Debug/net7.0/OrderManagement.API.pdb
 /Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/obj/Debug/net7.0/OrderManagement.API.genruntimeconfig.cache
 /Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/obj/Debug/net7.0/ref/OrderManagement.API.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Humanizer.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Microsoft.Extensions.DependencyModel.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Mono.TextTemplating.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/MySqlConnector.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/Pomelo.EntityFrameworkCore.MySql.dll
+/Users/jdlaping/Projects/GITHUB/enterprise-order-management-system/backend/OrderManagement.API/bin/Debug/net7.0/System.CodeDom.dll

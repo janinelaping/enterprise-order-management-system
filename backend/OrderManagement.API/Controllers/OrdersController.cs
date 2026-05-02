@@ -2,78 +2,87 @@ using Microsoft.AspNetCore.Mvc;
 using OrderManagement.API.Models;
 using System.Collections.Generic;
 using System.Linq;
+using AppDbContext = OrderManagement.API.Data.AppDbContext;
 
 namespace OrderManagement.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class OrdersController : ControllerBase
-    {
-        // TEMP in-memory storage (until MySQL is connected)
-        private static List<Order> _orders = new List<Order>();
-        private static int _nextId = 1;
+	[ApiController]
+	[Route("api/[controller]")]
+	public class OrdersController : ControllerBase
+	{
+		// TEMP in-memory storage (until MySQL is connected)
+		private readonly AppDbContext _context;
 
-        // GET: api/orders
-        [HttpGet]
-        public ActionResult<List<Order>> GetAll()
-        {
-            return Ok(_orders);
-        }
+		public OrdersController(AppDbContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/orders/{id}
-        [HttpGet("{id}")]
-        public ActionResult<Order> GetById(int id)
-        {
-            var order = _orders.FirstOrDefault(o => o.Id == id);
+		// GET: api/orders
+		[HttpGet]
+		public ActionResult<List<Order>> GetAll()
+		{
+			return Ok(_context.Orders.ToList());
+		}
 
-            if (order == null)
-                return NotFound($"Order with ID {id} not found.");
+		// GET: api/orders/{id}
+		[HttpGet("{id}")]
+		public ActionResult<Order> GetById(int id)
+		{
+			var order = _context.Orders.FirstOrDefault(o => o.Id == id);
 
-            return Ok(order);
-        }
+			if (order == null)
+				return NotFound($"Order with ID {id} not found.");
 
-        // POST: api/orders
-        [HttpPost]
-        public ActionResult<Order> Create(Order order)
-        {
-            order.Id = _nextId++;
-            order.CreatedAt = System.DateTime.UtcNow;
+			return Ok(order);
+		}
 
-            _orders.Add(order);
+		// POST: api/orders
+		[HttpPost]
+		public ActionResult<Order> Create(Order order)
+		{
+			order.CreatedAt = System.DateTime.UtcNow;
+			order.TotalAmount = order.Quantity * order.Price;
 
-            return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
-        }
+			_context.Orders.Add(order);
+			_context.SaveChanges();
 
-        // PUT: api/orders/{id}
-        [HttpPut("{id}")]
-        public ActionResult Update(int id, Order updatedOrder)
-        {
-            var order = _orders.FirstOrDefault(o => o.Id == id);
+			return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
+		}
 
-            if (order == null)
-                return NotFound($"Order with ID {id} not found.");
+		// PUT: api/orders/{id}
+		[HttpPut("{id}")]
+		public ActionResult Update(int id, Order updatedOrder)
+		{
+			var order = _context.Orders.FirstOrDefault(o => o.Id == id);
 
-            order.CustomerName = updatedOrder.CustomerName;
-            order.ProductName = updatedOrder.ProductName;
-            order.Quantity = updatedOrder.Quantity;
-            order.TotalAmount = updatedOrder.TotalAmount;
-            order.Status = updatedOrder.Status;
+			if (order == null)
+				return NotFound($"Order with ID {id} not found.");
 
-            return NoContent();
-        }
+			order.CustomerName = updatedOrder.CustomerName;
+			order.ProductName = updatedOrder.ProductName;
+			order.Quantity = updatedOrder.Quantity;
+			order.TotalAmount = order.Quantity * order.Price;
+			order.Status = updatedOrder.Status;
 
-        // DELETE: api/orders/{id}
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            var order = _orders.FirstOrDefault(o => o.Id == id);
+			_context.SaveChanges();
 
-            if (order == null)
-                return NotFound($"Order with ID {id} not found.");
+			return NoContent();
+		}
 
-            _orders.Remove(order);
+		// DELETE: api/orders/{id}
+		[HttpDelete("{id}")]
+		public ActionResult Delete(int id)
+		{
+			var order = _context.Orders.FirstOrDefault(o => o.Id == id);
 
-            return NoContent();
-        }
-    }
+			if (order == null)
+				return NotFound($"Order with ID {id} not found.");
+
+			_context.Orders.Remove(order);
+			_context.SaveChanges();
+
+			return NoContent();
+		}
+	}
 }
