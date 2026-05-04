@@ -102,7 +102,7 @@ namespace OrderManagement.API.Controllers
 			_context.Orders.Add(order);
 			await _context.SaveChangesAsync();
 
-			return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
+			return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
 		}
 	}
 }

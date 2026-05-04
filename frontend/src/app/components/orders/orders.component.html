@@ -1,0 +1,40 @@
+<h2>{{ editingOrderId ? 'Edit Order' : 'Create Order' }}</h2>
+
+<form (ngSubmit)="saveOrder()">
+  <input [(ngModel)]="newOrder.customerName" name="customerName" placeholder="Customer Name" required />
+  <input [(ngModel)]="newOrder.productName" name="productName" placeholder="Product Name" required />
+  <input [(ngModel)]="newOrder.quantity" name="quantity" type="number" placeholder="Quantity" />
+  <input [(ngModel)]="newOrder.price" name="price" type="number" placeholder="Price" />
+
+  <button type="submit">Add Order</button>
+</form>
+
+<hr>
+
+<h2>Orders</h2>
+
+<table border="1" width="100%">
+  <tr>
+    <th>ID</th>
+    <th>Customer</th>
+    <th>Product</th>
+    <th>Qty</th>
+    <th>Price</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+
+  <tr *ngFor="let order of orders">
+    <td>{{ order.id }}</td>
+    <td>{{ order.customerName }}</td>
+    <td>{{ order.productName }}</td>
+    <td>{{ order.quantity }}</td>
+    <td>{{ order.price }}</td>
+    <td>{{ order.status }}</td>
+    <td>
+      <button (click)="deleteOrder(order.id)">Delete</button>
+    </td>
+    <button (click)="editOrder(order)">Edit</button>
+    <button (click)="deleteOrder(order.id)">Delete</button>
+  </tr>
+</table>
