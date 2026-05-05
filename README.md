@@ -4,9 +4,11 @@ A full-stack enterprise-style application built with Angular and .NET, simulatin
 
 ## ✨ Features
 
-- User authentication (JWT)
-- Role-based access (Admin/User)
-- Create and manage orders
+- User registration and login with database-backed accounts
+- Secure password hashing for stored credentials
+- JWT authentication for protected API access
+- Role-based access control (Admin/User)
+- Create, read, update, and delete orders
 - RESTful API design
 
 ## ⚙️ Tech Stack
