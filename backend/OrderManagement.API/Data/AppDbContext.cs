@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OrderManagement.API.Models;
 using AppDbContext = OrderManagement.API.Data.AppDbContext;
+using Microsoft.AspNetCore.Identity;
 
 namespace OrderManagement.API.Data
 {
@@ -12,5 +13,6 @@ namespace OrderManagement.API.Data
         }
 
         public DbSet<Order> Orders { get; set; }
+		public DbSet<User> Users { get; set; }
     }
 }

@@ -84,25 +84,5 @@ namespace OrderManagement.API.Controllers
 
 			return NoContent();
 		}
-
-		public async Task<ActionResult<Order>> PostOrder(CreateOrderDto dto)
-		{
-			var order = new Order
-			{
-				CustomerName = dto.CustomerName,
-				ProductName = dto.ProductName,
-				Quantity = dto.Quantity,
-				Price = dto.Price,
-				CreatedBy = dto.CreatedBy,
-				Status = "Pending",
-				CreatedAt = DateTime.UtcNow,
-				TotalAmount = dto.Quantity * dto.Price
-			};
-
-			_context.Orders.Add(order);
-			await _context.SaveChangesAsync();
-
-			return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
-		}
 	}
 }
