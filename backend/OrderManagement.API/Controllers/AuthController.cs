@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,7 @@ namespace OrderManagement.API.Controllers
         }
 
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             var existingUser = _context.Users
@@ -49,6 +51,7 @@ namespace OrderManagement.API.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public ActionResult Login(LoginDto dto)
         {
             if (string.IsNullOrWhiteSpace(dto.Username) || string.IsNullOrWhiteSpace(dto.Password))
@@ -107,6 +110,7 @@ namespace OrderManagement.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult GetUser(int id)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
@@ -116,6 +120,37 @@ namespace OrderManagement.API.Controllers
             }
 
             return Ok(new { user.Id, user.Username, user.Role, user.CreatedAt });
+        }
+
+        [HttpGet("admin/users")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult<List<object>> GetAllUsers()
+        {
+            var users = _context.Users
+                .Select(u => new { u.Id, u.Username, u.Role, u.CreatedAt })
+                .ToList();
+            return Ok(users);
+        }
+
+        [HttpPut("admin/users/{id}/role")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult SetUserRole(int id, [FromBody] SetRoleDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Role) || (dto.Role != "Admin" && dto.Role != "User"))
+            {
+                return BadRequest("Role must be 'Admin' or 'User'.");
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound($"User with ID {id} not found.");
+            }
+
+            user.Role = dto.Role;
+            _context.SaveChanges();
+
+            return Ok(new { message = $"User role updated to {dto.Role}", user.Id, user.Username, user.Role });
         }
     }
 }

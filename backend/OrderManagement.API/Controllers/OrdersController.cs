@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrderManagement.API.Models;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace OrderManagement.API.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
+	[Authorize]
 	public class OrdersController : ControllerBase
 	{
 		// TEMP in-memory storage (until MySQL is connected)
@@ -39,6 +41,7 @@ namespace OrderManagement.API.Controllers
 
 		// POST: api/orders
 		[HttpPost]
+		[Authorize(Roles = "Admin")]
 		public ActionResult<Order> Create(Order order)
 		{
 			order.CreatedAt = System.DateTime.UtcNow;
@@ -52,6 +55,7 @@ namespace OrderManagement.API.Controllers
 
 		// PUT: api/orders/{id}
 		[HttpPut("{id}")]
+		[Authorize(Roles = "Admin")]
 		public ActionResult Update(int id, Order updatedOrder)
 		{
 			var order = _context.Orders.FirstOrDefault(o => o.Id == id);
@@ -72,6 +76,7 @@ namespace OrderManagement.API.Controllers
 
 		// DELETE: api/orders/{id}
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "Admin")]
 		public ActionResult Delete(int id)
 		{
 			var order = _context.Orders.FirstOrDefault(o => o.Id == id);

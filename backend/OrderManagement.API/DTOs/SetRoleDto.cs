@@ -1,0 +1,7 @@
+namespace OrderManagement.API.DTOs
+{
+    public class SetRoleDto
+    {
+        public string Role { get; set; } = string.Empty;
+    }
+}
