@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../core/order.service';
+import { OrderService } from '../../../core/order.service';
 
 @Component({
   selector: 'app-orders',
-  templateUrl: './orders.component.html'
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
 
@@ -30,7 +31,7 @@ export class OrdersComponent implements OnInit {
     this.editingOrderId = order.id;
   }
   loadOrders() {
-    this.orderService.getOrders().subscribe(data => {
+    this.orderService.getOrders().subscribe((data: any[]) => {
       this.orders = data;
     });
   }

@@ -1,0 +1,19 @@
+<div class="flex h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main -->
+  <div class="flex flex-1 flex-col">
+
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+
+    <!-- Content -->
+    <main class="flex-1 overflow-y-auto bg-gray-100 p-6">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>
